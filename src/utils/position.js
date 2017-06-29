@@ -1,16 +1,14 @@
 import ReactDOM from 'react-dom';
+import getScroller from './getScroller';
 
 const abovethetop = (nodeRect, containerRect, threshhold) =>
   nodeRect.bottom + threshhold < containerRect.top;
 
-
 const belowthefold = (nodeRect, containerRect, threshhold) =>
   nodeRect.top > containerRect.height + containerRect.top + threshhold;
 
-
 const rightofffold = (nodeRect, containerRect, threshhold) =>
   nodeRect.left > containerRect.left + containerRect.width + threshhold;
-
 
 const leftofbegin = (nodeRect, containerRect, threshhold) =>
   nodeRect.right + threshhold < containerRect.left;
@@ -23,14 +21,16 @@ const isInviewport = (component) => {
 
   let container = window;
   if (!scrollerIsWindow) {
-    container = getScrollParent(node);
+    container = getScroller(node);
   }
 
   let containerRect;
   try {
     containerRect = container.getBoundingClientRect();
   } catch (e) {
-    containerRect = { top: 0, right: window.innerWidth, bottom: window.innerHeight, left: 0, height: window.innerHeight, width: window.innerWidth };
+    const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    containerRect = { top: 0, left: 0, right: width, bottom: height, height, width };
   }
   const nodeRect = node.getBoundingClientRect();
 

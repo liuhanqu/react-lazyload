@@ -15,10 +15,10 @@ const scrollers = [];
 //   0: [],
 //   1: [],
 // }
-const listeners = {}; 
+const listeners = {};
 
 // key为scroller在scrollers中的index
-// value为scroller滚动对应的eventHandler 
+// value为scroller滚动对应的eventHandler
 // {
 //   0: fn,
 // }
@@ -26,7 +26,8 @@ const handlers = {};
 
 
 const lazyloadHandler = function (event) {
-  const idx = scrollers.findIndex(event.target);
+  const idx = scrollers.findIndex(scroller => event.target === scroller);
+
   if (idx === -1) {
     return;
   }
@@ -77,10 +78,10 @@ class LazyLoad extends Component {
     let idx = -1;
 
     if (this.props.scrollerIsWindow) {
-      scroller = window;
+      scroller = document;
     } else {
       const node = ReactDOM.findDOMNode(this); // eslint-disable-line
-      scroller = getScrollParent(node);
+      scroller = getScroller(node);
     }
 
     idx = scrollers.findIndex(val => scroller === val);
@@ -91,12 +92,11 @@ class LazyLoad extends Component {
         listeners[idx] = [];
       }
 
-      const finalLazyloadHanlder = throttole(lazyloadHandler, 100);
+      const finalLazyloadHanlder = throttle(lazyloadHandler, 100);
 
       handlers[idx] = finalLazyloadHanlder;
 
       scroller.addEventListener('scroll', finalLazyloadHanlder);
-
     }
 
     this.idx = idx;
@@ -105,6 +105,10 @@ class LazyLoad extends Component {
     listeners[idx].push(this);
 
     checkIsInViewport(this);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState.visible;
   }
 
   componentDidUpdate(prevProps, prevState) {

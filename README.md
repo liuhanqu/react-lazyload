@@ -3,6 +3,8 @@ lazy load React Component
 
 # Usage
 ```
+import 'Lazyload' from 'r-lazyload';
+
 <Lazyload
   threshhold={0}
   cls="lazyload-placeholder"
@@ -10,7 +12,12 @@ lazy load React Component
   <img src="image link" />
 </Lazyload>
 
-<Lazyload>
+<Lazyload scrollerIsWindow={true}>
+  <Your Component />
+</Lazyload>
+
+const Placeholder = () => (<div className="placehoder" />)
+<Lazyload placeholder={<Placehoder />}>
   <Your Component />
 </Lazyload>
 ```
@@ -30,7 +37,7 @@ The default Component for lazyload component when it's not visible.
 ### threshold
 type: number. Default: 0
 The offset to scroller's viewport, and it should be a positive number.
-when component's distance to scroller's viewpoet, it would preload.
+when component's distance to scroller's viewpoet less than threshold, it would preload.
 
 ## LICENSE
 MIT
