@@ -1,6 +1,6 @@
 {
   "name": "r-lazyload",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "lazy load React Component",
   "main": "./lib/index.js",
   "scripts": {

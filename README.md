@@ -28,7 +28,7 @@ The class name for the default lazy-load dom(div), if you do not add a placehold
 
 ### scrollerIsWindow
 type: Boolean. Default: false
-If the lazyload component is inside document.body, set true. Otherwise, if the lazyload component is inside a overflow container, set false.
+When it's value is true, it means that the window or ducument have scroll event. Otherwise, if the lazyload component is inside a overflow container, set false.
 
 ### placeholder
 type: element. Default: null
