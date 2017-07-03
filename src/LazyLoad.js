@@ -141,7 +141,7 @@ class LazyLoad extends Component {
       this.props.children :
       this.props.placeholder ?
         this.props.placeholder :
-        <div className={`lazy-load-placeholder ${this.props.cls}`} />;
+        <div className={`lazy-load-placeholder ${this.props.cls}`} style={{height: '100px'}} />;
   }
 }
 
